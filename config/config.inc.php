@@ -1,0 +1,5 @@
+<?php
+// VARIABLES Y CONFIGURACIONES GLOBALES
+$_SERVER['APP_NAME'] = "api_gastos_v1";
+
+?>
