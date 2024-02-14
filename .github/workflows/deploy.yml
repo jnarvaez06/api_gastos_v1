@@ -49,4 +49,4 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.HOST_DNS }} 'bash -s' < gitPull.sh
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.HOST_DNS }} 'bash -s' < gitPull.sh
