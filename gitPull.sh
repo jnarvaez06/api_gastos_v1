@@ -4,7 +4,8 @@
 cd /var/www/html/api_gastos_v1
 
 # Realiza un pull desde la rama main
-git pull origin main
+#git pull origin main
+git pull git@github.com:jnarvaez06/api_gastos_v1.git
 
 # Reinicia tu aplicación si es necesario
 # Esto podría variar dependiendo de tu aplicación y cómo esté configurada
