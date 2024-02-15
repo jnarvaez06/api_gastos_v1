@@ -4,12 +4,19 @@ class Connection{
 
     static public function infoDatabase(){
 
+        // $infoDB = array(
+        //     'host' => "localhost",
+        //     'database' => "gastos",
+        //     "port"=>"5432",
+        //     'user' => "admin",
+        //     'password' => "administrador"
+        // );
         $infoDB = array(
-            'host' => "localhost",
+            'host' => "gastos.c10wic6iyk0z.us-east-1.rds.amazonaws.com",
             'database' => "gastos",
             "port"=>"5432",
-            'user' => "admin",
-            'password' => "administrador"
+            'user' => "jnarvaez",
+            'password' => "postgres-ec2"
         );
 
         return $infoDB;
