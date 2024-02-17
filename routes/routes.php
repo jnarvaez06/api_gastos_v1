@@ -2,6 +2,10 @@
 include_once "config/general.php";
 $gActions = new GeneralActions;
 
+echo "<pre>";
+print_r($_SERVER);
+echo "</pre>";
+
 $routes = explode('/',$_SERVER['REQUEST_URI']);
 $routes = processRoutes(array_merge(array_filter($routes)));
 
