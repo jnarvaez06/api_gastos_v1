@@ -32,7 +32,7 @@ if (!empty($routes) && $requestMethod != "") {
     }
 
     if (!in_array($method,array('createUser','login'))) {
-        // include "services/login.php";
+        include_once "models/login_model.php";
         $login = new LoginModel;
 
         $token  = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
