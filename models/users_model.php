@@ -21,6 +21,14 @@ class UsersModel{
 
     public function createUser($postFields){
 
+        $sql = "SELECT usu_correo FROM usuario WHERE usu_correo = '{$postFields['email']}'";
+        $res = pg_query($this->con, $sql);
+        $usu_correo = pg_fetch_result($res, 0);
+
+        if ($usu_correo != "") {
+            return array('status'=>false, 'msg'=> 'Email already exists');
+        }
+
         $passw = password_hash($postFields["password"], PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO usuario (usu_nombre,usu_apellido,usu_correo,usu_clave) VALUES ($1, $2, $3, $4)";
