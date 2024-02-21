@@ -94,7 +94,15 @@ class GeneralActions{
                         return array('status'=>false, 'msg'=>"Field [$key] is not a valid date with the desired format (YYYY-MM-DD)");
                     }
                     break;
-                
+
+                case 'email':
+                    $emailFiltrado = filter_var($value, FILTER_VALIDATE_EMAIL);
+
+                    // Verificar si el correo electrónico es válido
+                    if ($emailFiltrado === false) {
+                        return array('status'=>false, 'msg'=>"Field [$key] must be a valid email");
+                    }
+                                
                 default:
                     # code...
                     break;

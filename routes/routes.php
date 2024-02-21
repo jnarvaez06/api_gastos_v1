@@ -2,10 +2,6 @@
 include_once "config/general.php";
 $gActions = new GeneralActions;
 
-echo "<pre>";
-print_r($_SERVER);
-echo "</pre>";
-
 $routes = explode('/',$_SERVER['REQUEST_URI']);
 $routes = processRoutes(array_merge(array_filter($routes)));
 
@@ -21,9 +17,10 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 if (!empty($routes) && $requestMethod != "") {
 
     $routeConfig = array(
+        'createUser'=>'services/users.php',
+        'login'=>"services/login.php",
         'getAccounts' => "services/accounts.php",
-        'createRecord' => "services/record.php",
-        'login'=>"services/login.php"
+        'createRecord' => "services/record.php"
     );
 
     $redirect = isset($routeConfig[$method]) ? $routeConfig[$method] : "";
