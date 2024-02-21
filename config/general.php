@@ -127,6 +127,10 @@ class GeneralActions{
 
         return array('token'=>$jwt);
     }
+
+    static public function validToken($token){
+
+    }
 }
 
 ?>
