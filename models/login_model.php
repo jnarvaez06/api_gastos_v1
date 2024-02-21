@@ -21,11 +21,20 @@ class LoginModel{
 
     public function validateUser($postFields){
 
-        $sql = "SELECT usu_codigo FROM usuario WHERE usu_correo = '{$postFields['user']}' AND usu_clave = '{$postFields['password']}'";
+        $sql = "SELECT usu_nombre,usu_apellido,usu_correo,usu_clave FROM usuario WHERE usu_correo = '{$postFields['user']}'";
         $res = pg_query($this->con, $sql);
-        $usu_codigo = pg_fetch_result($res, 0);
+        if ($res) {
+            $row = pg_fetch_assoc($res);
+            if ($row && password_verify($postFields['password'], $row['usu_clave'])) {
+                return "OK";
+            } else {
+                return "";
+            }
+        }else{
+            return "";
+        }
+        
 
-        return $usu_codigo;
     }
 }
 

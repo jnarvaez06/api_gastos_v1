@@ -11,14 +11,6 @@ class UsersModel{
         $this->con = Connection::connect();
     }
 
-    public function getUserLogin(){
-
-        $result = pg_query($this->con, "SELECT * FROM usuario");
-        $resCuenta  = pg_fetch_all($result);
-
-        return $resCuenta;
-    }
-
     public function createUser($postFields){
 
         $sql = "SELECT usu_correo FROM usuario WHERE usu_correo = '{$postFields['email']}'";
