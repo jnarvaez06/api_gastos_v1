@@ -32,7 +32,7 @@ if (!empty($routes) && $requestMethod != "") {
     }
 
     if (!in_array($method,array('createUser','login'))) {
-        include "services/login.php";
+        // include "services/login.php";
         $login = new LoginModel;
 
         $token  = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
@@ -40,7 +40,7 @@ if (!empty($routes) && $requestMethod != "") {
         $res    = $gActions->ValidToken($data);
 
         if (!$res['status']) {
-            $gActions->emitResponse(400, $res['msg']);
+            $gActions->emitResponse(400, 'Error', array('key'=>'message', 'value'=>$res['msg']));
             return;
         }
     }
