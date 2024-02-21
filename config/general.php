@@ -125,11 +125,20 @@ class GeneralActions{
 
         $jwt = JWT::encode($token, "liJ6HGK5Lhg3ku7cbOjknJ8",'HS256');
 
-        return array('token'=>$jwt);
+        return array('token'=>$jwt,'dataToken'=>$token);
     }
 
-    static public function validToken($token){
+    static public function validToken($expiresToken){
+        if ($expiresToken == "") {
+            return array('status'=>false, 'msg'=>'Invalid Token');
+        }
 
+        $time = time();
+        if ($time > $expiresToken) {
+            return array('status'=>false, 'msg'=>'Token has expired');
+        }
+
+        return array('status'=>true, 'msg'=>'');
     }
 }
 

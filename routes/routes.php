@@ -1,7 +1,7 @@
 <?php
 include_once "config/general.php";
 $gActions = new GeneralActions;
-print_r($_SERVER);die();
+
 $routes = explode('/',$_SERVER['REQUEST_URI']);
 $routes = processRoutes(array_merge(array_filter($routes)));
 
@@ -32,7 +32,15 @@ if (!empty($routes) && $requestMethod != "") {
     }
 
     if (!in_array($method,array('createUser','login'))) {
-        // $gActions->ValidToken($_SERVER['']);
+        include "services/login.php";
+        $login = new LoginModel;
+        $data = $login->getDataUserToken($_SERVER['HTTP_AUTHORIZATION']);
+        $res = $gActions->ValidToken($data);
+
+        if (!$res['status']) {
+            $gActions->emitResponse(400, $res['msg']);
+            return;
+        }
     }
 
 

@@ -21,20 +21,38 @@ class LoginModel{
 
     public function validateUser($postFields){
 
-        $sql = "SELECT usu_nombre,usu_apellido,usu_correo,usu_clave FROM usuario WHERE usu_correo = '{$postFields['user']}'";
+        $sql = "SELECT usu_codigo,usu_nombre,usu_apellido,usu_correo,usu_clave FROM usuario WHERE usu_correo = '{$postFields['user']}'";
         $res = pg_query($this->con, $sql);
         if ($res) {
             $row = pg_fetch_assoc($res);
             if ($row && password_verify($postFields['password'], $row['usu_clave'])) {
-                return "OK";
+                return $row['usu_codigo'];
             } else {
                 return "";
             }
         }else{
             return "";
         }
-        
+    }
 
+    public function associateTokenUser($token){
+
+        $sql = "UPDATE usuario SET usu_token=$1,usu_expira=$2 WHERE usu_codigo = $3";
+        $result = pg_query_params($this->con, $sql, array($token['token'],$token['dataToken']['exp'],$token['dataToken']['data']['id']));
+
+        if($result){
+            return array('status'=>true, 'msg'=>'');
+        }else{
+            return array('status'=>false, 'msg'=> pg_last_error($this->con));
+        }
+    }
+
+    public function getDataUserToken($token){
+        $sql = "SELECT usu_expira FROM usuario WHERE usu_token = '$token'";
+        $res = pg_query($this->con, $sql);
+        $usu_expira = pg_fetch_result($res, 0);
+
+        return $usu_expira;
     }
 }
 

@@ -16,7 +16,6 @@ class LoginController{
         }
 
         $model = new LoginModel;
-        // $credentials = $model->getUserLogin();
         $auth = $model->validateUser($postFields);
 
         if($auth==""){
@@ -29,11 +28,22 @@ class LoginController{
 
         $tokenJWT = $gActions->jwt($auth,$postFields['user']);
 
-        return array(
-            'code'=> 200,
-            'result'=>'Success',
-            'message'=>array('key'=>'message', 'value'=>$tokenJWT)
-        );
+        // ASOCIA EL TOKEN AL USUARIO
+        $assoc = $model->associateTokenUser($tokenJWT);
+
+        if ($assoc['status']) {
+            return array(
+                'code'=> 200,
+                'result'=>'Success',
+                'message'=>array('key'=>'message', 'value'=>array('token'=>$tokenJWT['token']))
+            );
+        }else{
+            return array(
+                'code'=> 400,
+                'result'=>'Error',
+                'message'=>array('key'=>'message', 'value'=>"Authentication Failed")
+            );
+        }
         
     }
 
