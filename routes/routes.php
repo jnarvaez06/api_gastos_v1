@@ -34,8 +34,10 @@ if (!empty($routes) && $requestMethod != "") {
     if (!in_array($method,array('createUser','login'))) {
         include "services/login.php";
         $login = new LoginModel;
-        $data = $login->getDataUserToken($_SERVER['HTTP_AUTHORIZATION']);
-        $res = $gActions->ValidToken($data);
+
+        $token  = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
+        $data   = $login->getDataUserToken($token);
+        $res    = $gActions->ValidToken($data);
 
         if (!$res['status']) {
             $gActions->emitResponse(400, $res['msg']);
