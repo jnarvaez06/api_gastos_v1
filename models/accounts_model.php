@@ -4,30 +4,15 @@ require_once "connection.php";
 
 class AccountsModel{
 
-    static public function getData($method){
+    public $con;
 
-        $con = Connection::connect();
-        $resData = array();
-
-        switch ($method) {
-            case 'getAccounts':
-                $accounts = new AccountsModel();
-                $resData = $accounts->getAccounts($con);                
-                break;
-            
-            default:
-                # code...
-                break;
-        }
-
-        return $resData;
-
+    public function __construct(){
+        $this->con = Connection::connect();
     }
 
+    public function getAccounts(){
 
-    static public function getAccounts($con=null){
-
-        $result = pg_query($con, "SELECT * FROM cuenta");
+        $result = pg_query($this->con, "SELECT * FROM cuenta");
         $resCuenta  = pg_fetch_all($result);
 
         return $resCuenta;

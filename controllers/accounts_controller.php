@@ -6,7 +6,17 @@ class AccountsController{
 
     static public function getData($method){
 
-        $response = AccountsModel::getData($method);
+        $accounts = new AccountsModel();
+
+        switch ($method) {
+            case 'getAccounts':
+                $response = $accounts->getAccounts();                
+                break;
+            
+            default:
+                # code...
+                break;
+        }
 
         return $response;
     }
