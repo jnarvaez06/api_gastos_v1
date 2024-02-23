@@ -14,6 +14,12 @@ $method =  $routes[0];
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
+if ($requestMethod=='POST' && empty($_POST)) {
+    $gActions->emitResponse(400, 'Error', array('key'=>'message', 'value'=>"Empty Post data.")); 
+    return;
+}
+
+
 if (!empty($routes) && $requestMethod != "") {
 
     $routeConfig = array(

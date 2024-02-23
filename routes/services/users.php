@@ -3,11 +3,6 @@
 require_once "controllers/users_controller.php";
 $gActions = new GeneralActions;
 
-if (empty($_POST)) {
-    $gActions->emitResponse(400, 'Error', array('key'=>'message', 'value'=>"Empty Post data.")); 
-    return;
-}
-
 $data = new UsersController();
 $response = $data->getData($method,$_POST);
 

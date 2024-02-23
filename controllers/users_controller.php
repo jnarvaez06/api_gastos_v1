@@ -13,7 +13,7 @@ class UsersController{
 
             case 'createUser':
                 $valid = self::ValidateFields($postFields);
-                if(!$valid['status']){                    
+                if(!$valid['status']){
                     return $valid;
                 }
 
