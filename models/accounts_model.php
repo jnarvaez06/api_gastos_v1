@@ -20,7 +20,7 @@ class AccountsModel{
 
     public function createAccounts($postFields){
 
-        $sql = "INSERT INTO cuenta (cue_nombre,cue_usuario,cue_estado) VALUES ($1, $2, $3, $4)";
+        $sql = "INSERT INTO cuenta (cue_nombre,cue_usuario,cue_estado) VALUES ($1, $2, $3)";
         $result = pg_query_params($this->con, $sql, array($postFields['nombre'],1,true));
 
         if($result){
