@@ -23,17 +23,25 @@ if ($requestMethod=='POST' && empty($_POST)) {
 if (!empty($routes) && $requestMethod != "") {
 
     $routeConfig = array(
-        'createUser'=>'services/users.php',
-        'login'=>"services/login.php",
-        'getAccounts' => "services/accounts.php",
-        'createAccounts' => "services/accounts.php",
-        'createRecord' => "services/record.php"
+        'createUser'=> array('method'=>'services/users.php','type'=>'POST'),
+        'login'=> array('method'=>"services/login.php",'type'=>'GET'),
+        'getAccounts' => array('method'=>"services/accounts.php",'type'=>'GET'),
+        'createAccounts' => array('method'=>"services/accounts.php",'type'=>'POST'),
+        'updateAccounts' => array('method'=>"services/accounts.php",'type'=>'POST'),
+        'createRecord' => array('method'=>"services/record.php",'type'=>'POST')
     );
 
-    $redirect = isset($routeConfig[$method]) ? $routeConfig[$method] : "";
+    $redirect = isset($routeConfig[$method]['method']) ? $routeConfig[$method]['method'] : "";
 
     if ($redirect == "") {
         $gActions->emitResponse(400, "Invalid Method, <$method> doesn't exist");
+        return;
+    }
+
+    $requestReceived = ($routeConfig[$method]['type']) ?? "";
+
+    if ($requestReceived != $requestMethod) {
+        $gActions->emitResponse(400, "Invalid http request, <$method> must be $requestReceived");
         return;
     }
 

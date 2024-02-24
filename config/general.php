@@ -52,7 +52,7 @@ class GeneralActions{
     private function verifyRequiredField($fields, $postFields){
 
         foreach ($fields as $key => $value) {
-            $postField = isset($postFields[$key]) ? $postFields[$key] : "";
+            $postField = isset($postFields[$key]) ? trim($postFields[$key]) : "";
 
             if($value['isRequired'] && $postField==""){
                 return array('status'=>false, 'msg'=>"Field [$key] is required");
@@ -102,6 +102,7 @@ class GeneralActions{
                     if ($emailFiltrado === false) {
                         return array('status'=>false, 'msg'=>"Field [$key] must be a valid email");
                     }
+                    break;
                                 
                 default:
                     # code...
