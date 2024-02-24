@@ -12,7 +12,7 @@ class AccountsModel{
 
     public function getAccounts(){
 
-        $result = pg_query($this->con, "SELECT * FROM cuenta");
+        $result = pg_query($this->con, "SELECT * FROM cuenta WHERE cue_usuario='{$_SESSION['usuId']}'");
         $resCuenta  = pg_fetch_all($result);
 
         return array('status'=>true, 'data'=>$resCuenta);
