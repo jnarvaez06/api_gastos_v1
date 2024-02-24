@@ -48,11 +48,21 @@ class LoginModel{
     }
 
     public function getDataUserToken($token){
-        $sql = "SELECT usu_expira FROM usuario WHERE usu_token = '$token'";
+        $sql = "SELECT usu_codigo,usu_correo,usu_expira FROM usuario WHERE usu_token = '$token'";
         $res = pg_query($this->con, $sql);
-        $usu_expira = pg_fetch_result($res, 0);
+        $row = pg_fetch_assoc($res);
 
-        return $usu_expira;
+        return array(
+            'usu_codigo'=>$row['usu_codigo'],
+            'usu_correo'=>$row['usu_correo'],
+            'usu_expira'=>$row['usu_expira']
+        );
+    }
+
+    public function startSession($data){
+        session_start();
+        $_SESSION['usuId'] = $data['usu_codigo'];
+        $_SESSION['usuEmail'] = $data['usu_correo'];
     }
 }
 

@@ -15,7 +15,7 @@ class AccountsModel{
         $result = pg_query($this->con, "SELECT * FROM cuenta");
         $resCuenta  = pg_fetch_all($result);
 
-        return array('status'=>true, 'msg'=>$resCuenta);
+        return array('status'=>true, 'data'=>$resCuenta);
     }
 
     public function createAccounts($postFields){

@@ -41,16 +41,20 @@ if (!empty($routes) && $requestMethod != "") {
         include_once "models/login_model.php";
         $login = new LoginModel;
 
-        $token  = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
-        $data   = $login->getDataUserToken($token);
-        $res    = $gActions->ValidToken($data);
+        $authHTTP = ($_SERVER['HTTP_AUTHORIZATION']) ?? $_SERVER['HTTP_AUTH2'];
 
+        $token  = str_replace('Bearer ', '', $authHTTP);
+
+        $data   = $login->getDataUserToken($token);
+        $res    = $gActions->ValidToken($data['usu_expira']);        
+        
         if (!$res['status']) {
             $gActions->emitResponse(400, 'Error', array('key'=>'message', 'value'=>$res['msg']));
             return;
+        }else{
+            $login->startSession($data);
         }
     }
-
 
     // REDIRECCIONA A LAS ACCION OBTENIDA DE ROUTES
     include "$redirect";

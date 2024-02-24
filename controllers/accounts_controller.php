@@ -3,7 +3,7 @@
 require_once "models/accounts_model.php";
 
 class AccountsController{
-
+    
     static public function getData($method, $postFields=array()){
 
         $accounts = new AccountsModel();
