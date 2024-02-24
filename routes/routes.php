@@ -28,6 +28,9 @@ if (!empty($routes) && $requestMethod != "") {
         'getAccounts' => array('method'=>"services/accounts.php",'type'=>'GET'),
         'createAccounts' => array('method'=>"services/accounts.php",'type'=>'POST'),
         'updateAccounts' => array('method'=>"services/accounts.php",'type'=>'POST'),
+        'createCategory' => array('method'=>"services/category.php",'type'=>'POST'),
+        'getCategory' => array('method'=>"services/category.php",'type'=>'GET'),
+        'updateCategory' => array('method'=>"services/category.php",'type'=>'POST'),
         'createRecord' => array('method'=>"services/record.php",'type'=>'POST')
     );
 
@@ -49,7 +52,10 @@ if (!empty($routes) && $requestMethod != "") {
         include_once "models/login_model.php";
         $login = new LoginModel;
 
-        $authHTTP = ($_SERVER['HTTP_AUTHORIZATION']) ?? $_SERVER['HTTP_AUTH2'];
+        $auth1 = ($_SERVER['HTTP_AUTHORIZATION']) ?? "";
+        $auth2 = ($_SERVER['HTTP_AUTH2']) ?? "";
+
+        $authHTTP = ($auth1 != "") ? $auth1 : $auth2;
 
         $token  = str_replace('Bearer ', '', $authHTTP);
 

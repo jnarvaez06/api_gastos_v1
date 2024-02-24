@@ -53,9 +53,9 @@ class LoginModel{
         $row = pg_fetch_assoc($res);
 
         return array(
-            'usu_codigo'=>$row['usu_codigo'],
-            'usu_correo'=>$row['usu_correo'],
-            'usu_expira'=>$row['usu_expira']
+            'usu_codigo'=>($row['usu_codigo']) ?? '',
+            'usu_correo'=>($row['usu_correo']) ?? '',
+            'usu_expira'=>($row['usu_expira']) ?? ''
         );
     }
 
