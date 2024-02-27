@@ -24,14 +24,17 @@ if (!empty($routes) && $requestMethod != "") {
 
     $routeConfig = array(
         'createUser'=> array('method'=>'services/users.php','type'=>'POST'),
-        'login'=> array('method'=>"services/login.php",'type'=>'GET'),
+        'login'=> array('method'=>"services/login.php",'type'=>'POST'),
         'getAccounts' => array('method'=>"services/accounts.php",'type'=>'GET'),
         'createAccounts' => array('method'=>"services/accounts.php",'type'=>'POST'),
         'updateAccounts' => array('method'=>"services/accounts.php",'type'=>'POST'),
         'createCategory' => array('method'=>"services/category.php",'type'=>'POST'),
         'getCategory' => array('method'=>"services/category.php",'type'=>'GET'),
         'updateCategory' => array('method'=>"services/category.php",'type'=>'POST'),
-        'createRecord' => array('method'=>"services/record.php",'type'=>'POST')
+        'createSubCategory' => array('method'=>"services/subcategory.php",'type'=>'POST'),
+        'getSubCategory' => array('method'=>"services/subcategory.php",'type'=>'GET'),
+        'updateSubCategory' => array('method'=>"services/subcategory.php",'type'=>'POST'),
+        'createRecord' => array('method'=>"services/record.php",'type'=>'POST'),
     );
 
     $redirect = isset($routeConfig[$method]['method']) ? $routeConfig[$method]['method'] : "";
