@@ -2,13 +2,14 @@
 require_once "controllers/records_controller.php";
 $gActions = new GeneralActions;
 
-if (empty($_POST)) {
-    $gActions->emitResponse(400, 'Error', array('key'=>'message', 'value'=>"Empty Post data.")); 
-    return;
-}
+$data = new RecordsController();
+$response = $data->getData($method,$_POST);
 
-$records = new RecordsController;
-$records->PostData($method, $_POST);
+if ($response['status']) {
+    $gActions->emitResponse(200,"Success",array('key'=>'response','value'=>$response));
+}else{
+    $gActions->emitResponse(400, 'Error', array('key'=>'message', 'value'=>$response['msg'])); 
+}
 
 
 ?>

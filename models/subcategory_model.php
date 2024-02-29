@@ -20,7 +20,7 @@ class SubCategoryModel{
 
     public function createSubCategory($postFields){
 
-        $campos = array(
+        $fields = array(
             $postFields['nombre'],
             $_SESSION['usuId'],
             true,
@@ -29,7 +29,7 @@ class SubCategoryModel{
         );
         
         $sql = "INSERT INTO subcategoria (sub_nombre,sub_usuario,sub_estado,sub_catego,sub_tipo) VALUES ($1, $2, $3, $4, $5)";
-        $result = pg_query_params($this->con, $sql, $campos);
+        $result = pg_query_params($this->con, $sql, $fields);
 
         if($result){
             return array('status'=>true, 'msg'=>'');
@@ -52,7 +52,7 @@ class SubCategoryModel{
             $update .= ",sub_tipo='{$postFields['tipo']}'";
         }
         if (isset($postFields['categoria'])) {
-            $update .= ",sub_catego={$postFields['tipo']}";
+            $update .= ",sub_catego={$postFields['categoria']}";
         }
 
         $sql = "UPDATE subcategoria SET 

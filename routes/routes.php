@@ -35,6 +35,9 @@ if (!empty($routes) && $requestMethod != "") {
         'getSubCategory' => array('method'=>"services/subcategory.php",'type'=>'GET'),
         'updateSubCategory' => array('method'=>"services/subcategory.php",'type'=>'POST'),
         'createRecord' => array('method'=>"services/record.php",'type'=>'POST'),
+        'updateRecord' => array('method'=>"services/record.php",'type'=>'POST'),
+        'createTransfer' => array('method'=>"services/record.php",'type'=>'POST'),
+        'updateTransfer' => array('method'=>"services/record.php",'type'=>'POST'),
     );
 
     $redirect = isset($routeConfig[$method]['method']) ? $routeConfig[$method]['method'] : "";
